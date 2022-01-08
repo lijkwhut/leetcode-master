@@ -1,10 +1,8 @@
 <p align="center">
-  <a href="https://mp.weixin.qq.com/s/RsdcQ9umo09R6cfnwXZlrQ"><img src="https://img.shields.io/badge/PDF下载-代码随想录-blueviolet" alt=""></a>
-  <a href="https://mp.weixin.qq.com/s/b66DFkOp8OOxdZC_xLZxfw"><img src="https://img.shields.io/badge/刷题-微信群-green" alt=""></a>
-  <a href="https://space.bilibili.com/525438321"><img src="https://img.shields.io/badge/B站-代码随想录-orange" alt=""></a>
-  <a href="https://mp.weixin.qq.com/s/QVF6upVMSbgvZy8lHZS3CQ"><img src="https://img.shields.io/badge/知识星球-代码随想录-blue" alt=""></a>
-</p>
-<p align="center"><strong>欢迎大家<a href="https://mp.weixin.qq.com/s/tqCxrMEU-ajQumL1i8im9A">参与本项目</a>，贡献其他语言版本的代码，拥抱开源，让更多学习算法的小伙伴们收益！</strong></p>
+<a href="https://programmercarl.com/other/kstar.html" target="_blank">
+  <img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210924105952.png" width="1000"/>
+</a>
+<p align="center"><strong><a href="https://mp.weixin.qq.com/s/tqCxrMEU-ajQumL1i8im9A">参与本项目</a>，贡献其他语言版本的代码，拥抱开源，让更多学习算法的小伙伴们收益！</strong></p>
 
 
 > 反转个字符串还有这么多用处？
@@ -88,7 +86,7 @@ public:
 # 题外话
 
 一些同学热衷于使用substr，来做这道题。
-其实使用substr 和 反转 时间复杂度是一样的 ，都是O(n)，但是使用substr申请了额外空间，所以空间复杂度是O(n)，而反转方法的空间复杂度是O(1)。
+其实使用substr 和 反转 时间复杂度是一样的 ，都是$O(n)$，但是使用substr申请了额外空间，所以空间复杂度是$O(n)$，而反转方法的空间复杂度是$O(1)$。
 
 **如果想让这套题目有意义，就不要申请额外空间。**
 
@@ -200,25 +198,47 @@ func reverse(b []byte, left, right int){
 JavaScript：
 
 ```javascript
-var reverseLeftWords = function (s, n) {
-    const reverse = (str, left, right) => {
-        let strArr = str.split("");
-        for (; left < right; left++, right--) {
-            [strArr[left], strArr[right]] = [strArr[right], strArr[left]];
-        }
-        return strArr.join("");
-    }
-    s = reverse(s, 0, n - 1);
-    s = reverse(s, n, s.length - 1);
-    return reverse(s, 0, s.length - 1);
+var reverseLeftWords = function(s, n) {
+  const length = s.length;
+  let i = 0;
+  while (i < length - n) {
+    s = s[length - 1] + s;
+    i++;
+  }
+  return s.slice(0, length);
 };
+```
+
+Swift:
+
+```swift
+func reverseLeftWords(_ s: String, _ n: Int) -> String {
+    var ch = Array(s)
+    let len = ch.count
+    // 反转区间[0, n - 1]
+    reverseString(&ch, startIndex: 0, endIndex: n - 1)
+    // 反转区间[n, len - 1]
+    reverseString(&ch, startIndex: n, endIndex: len - 1)
+    // 反转区间[0, len - 1]，也就是整个字符串反转
+    reverseString(&ch, startIndex: 0, endIndex: len - 1)
+    return String(ch)
+}
+
+func reverseString(_ s: inout [Character], startIndex: Int, endIndex: Int)  {
+    var start = startIndex
+    var end = endIndex
+    while start < end {
+        (s[start], s[end]) = (s[end], s[start])
+        start += 1
+        end -= 1
+    }
+}
 ```
 
 
 
 
+
+
 -----------------------
-* 作者微信：[程序员Carl](https://mp.weixin.qq.com/s/b66DFkOp8OOxdZC_xLZxfw)
-* B站视频：[代码随想录](https://space.bilibili.com/525438321)
-* 知识星球：[代码随想录](https://mp.weixin.qq.com/s/QVF6upVMSbgvZy8lHZS3CQ)
-<div align="center"><img src=https://code-thinking.cdn.bcebos.com/pics/01二维码.jpg width=450> </img></div>
+<div align="center"><img src=https://code-thinking.cdn.bcebos.com/pics/01二维码一.jpg width=500> </img></div>
